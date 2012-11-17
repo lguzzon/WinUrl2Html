@@ -5,6 +5,6 @@
     "shelljs": "*"
   }, 
   "description": "Application that replace .url windows files with an .html file with redirect to the original url", 
-  "name": "winUrl2Html", 
+  "name": "WinUrl2Html", 
   "version": "0.9.1"
 }
