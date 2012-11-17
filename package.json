@@ -1,0 +1,10 @@
+{
+  "author": "Luca Guzzon <luca.guzzon@gmail.com>", 
+  "dependencies": {
+    "cli": "*", 
+    "shelljs": "*"
+  }, 
+  "description": "Application that replace .url windows files with an .html file with redirect to the original url", 
+  "name": "winUrl2Html", 
+  "version": "0.9.1"
+}
