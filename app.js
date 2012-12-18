@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var shortRecursive = 'r',
@@ -25,13 +25,13 @@
         startpath: [shortStartPath, optionsStartPath.describe, 'string', optionsStartPath.defaultValue]
     });
 
-    cli.main(function(args, options) {
+    cli.main(function (args, options) {
         var shell = require('shelljs'),
             path = require('path'),
             lsOptions = options.recursive ? '-R' : null,
             lsStartPath = path.normalize(path.join(options.startpath, '*')),
             filenames = lsOptions ? shell.ls(lsOptions, lsStartPath) : shell.ls(lsStartPath),
-            filteredFilenames = filenames.filter(function(file) {
+            filteredFilenames = filenames.filter(function (file) {
                 return file.match(/\.url$/);
             }),
             filename = "",
