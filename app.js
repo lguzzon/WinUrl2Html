@@ -1,3 +1,4 @@
+;
 (function () {
     'use strict';
 
@@ -32,7 +33,7 @@
             lsStartPath = path.normalize(path.join(options.startpath, '*')),
             filenames = lsOptions ? shell.ls(lsOptions, lsStartPath) : shell.ls(lsStartPath),
             filteredFilenames = filenames.filter(function (file) {
-                return file.match(/\.url$/);
+                return file.match(/\.[uU][rR][lL]$/);
             }),
             filename = "",
             filteredFilenamesLength = filteredFilenames.length;
@@ -43,8 +44,8 @@
             cli.progress((filteredFilenamesLength - i) / filteredFilenamesLength);
             filename = filteredFilenames[i];
             this.info('Replacing:' + filename);
-            var newHtmfilename = filename.match(/(.*)\.url$/)[1] + '.html',
-                url = shell.cat(filename).match(/\=(.*)/)[1];
+            var newHtmfilename = filename.match(/(.*)\.[uU][rR][lL]$/)[1] + '.html',
+                url = shell.cat(filename).match(/=(.*)/)[1];
             '<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=XXX"></HEAD><BODY></BODY>'.replace('XXX', url).to(newHtmfilename);
             shell.rm(filename);
         }
