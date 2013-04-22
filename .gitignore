@@ -28,6 +28,11 @@ local.properties
 # PDT-specific
 .buildpath
 
+#################
+## Eclipse
+#################
+.idea/
+projectFilesBackup/
 
 #################
 ## Visual Studio
@@ -167,3 +172,10 @@ pip-log.txt
 #############
 
 node_modules/
+
+#############
+## c9.io
+#############
+
+.c9revisions/
+gitflow/
