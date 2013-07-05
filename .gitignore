@@ -172,3 +172,10 @@ pip-log.txt
 #############
 
 node_modules/
+
+#############
+## c9.io
+#############
+
+.c9revisions/
+gitflow/
