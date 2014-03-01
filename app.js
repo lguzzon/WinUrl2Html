@@ -57,7 +57,7 @@ cli.main(function (aArgs, aOptions) {
                 aTaskCallBack();
             }
         });
-    };
+    }
 
     cli.info('Working in: ' + path.resolve(process.cwd()));
     cli.info('Searching in: ' + lStartPath);
