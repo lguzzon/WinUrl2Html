@@ -61,7 +61,6 @@ cli.main(function(aArgs, aOptions) {
                     }
                     else {
                         cli.error('No match found: [' + lFileContent + ']');
-
                     }
                 }
                 aTaskCallBack();
