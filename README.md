@@ -1,5 +1,6 @@
 #WinURL2Html
 [![Dependencies](https://david-dm.org/lguzzon/WinUrl2Html.png)](https://david-dm.org/lguzzon/WinUrl2Html)
+[![bitHound Dependencies](https://www.bithound.io/github/lguzzon/WinUrl2Html/badges/dependencies.svg)](https://www.bithound.io/github/lguzzon/WinUrl2Html/master/dependencies/npm)
 [![Code Climate](https://codeclimate.com/github/lguzzon/WinUrl2Html.png)](https://codeclimate.com/github/lguzzon/WinUrl2Html)
 [![Analytics](https://ga-beacon.appspot.com/UA-39987869-2/WinUrl2Html/readme)](https://github.com/lguzzon/WinUrl2Html)  
 
