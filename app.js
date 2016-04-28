@@ -12,7 +12,7 @@ var shortRecursive = 'r',
         defaultValue: '.'
     },
     cli = require('cli')
-    .enable('status', 'version'),
+        .enable('status', 'version'),
     packageJson = require('./package.json');
 if (packageJson) {
     cli.setApp(packageJson.name, packageJson.version);
@@ -21,7 +21,7 @@ cli.parse({
     recursive: [shortRecursive, optionsRecursive.describe],
     startpath: [shortStartPath, optionsStartPath.describe, 'string', optionsStartPath.defaultValue]
 });
-cli.main(function(aArgs, aOptions) {
+cli.main(function (aArgs, aOptions) {
     var fs = require('fs'),
         path = require('path'),
         async = require('async'),
@@ -29,15 +29,15 @@ cli.main(function(aArgs, aOptions) {
         lDirectoryQueue;
 
     function lDirectoryWorker(aTask, aTaskCallBack) {
-        fs.stat(aTask.path, function(aStatError, aStats) {
+        fs.stat(aTask.path, function (aStatError, aStats) {
             if (aStatError) {
                 aTaskCallBack(aStatError);
             }
             else if (aStats.isDirectory()) {
                 //cli.info('Processing :' + aTask.path);
-                fs.readdir(aTask.path, function(aReadDirError, aReadDirFiles) {
+                fs.readdir(aTask.path, function (aReadDirError, aReadDirFiles) {
                     if (!aReadDirError) {
-                        aReadDirFiles.forEach(function(aReadDirFile) {
+                        aReadDirFiles.forEach(function (aReadDirFile) {
                             lDirectoryQueue.push({
                                 path: path.join(aTask.path, aReadDirFile)
                             });
@@ -73,4 +73,7 @@ cli.main(function(aArgs, aOptions) {
     lDirectoryQueue.push({
         path: lStartPath
     });
+    lDirectoryQueue.drain = function () {
+        cli.info('All done !!!');
+    };
 });
