@@ -1,10 +1,13 @@
 {
-    "author": "Luca Guzzon <luca.guzzon@gmail.com>",
-    "dependencies": {
-        "cli": "*",
-        "async": "*"
-    },
-    "description": "Application that replace .url windows files with an .html file with redirect to the original url",
-    "name": "WinUrl2Html",
-    "version": "1.1.5"
+  "author": "Luca Guzzon <luca.guzzon@gmail.com>",
+  "dependencies": {
+    "async": "*",
+    "cli": "*"
+  },
+  "devDependencies": {
+    "eslint": "*"
+  },
+  "description": "Application that replace .url windows files with an .html file with redirect to the original url",
+  "name": "winurl2html",
+  "version": "1.1.6"
 }
