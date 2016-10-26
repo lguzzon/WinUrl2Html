@@ -1,4 +1,5 @@
 #WinURL2Html
+[![Known Vulnerabilities](https://snyk.io/test/github/lguzzon/winurl2html/7bb035d1a4d5d71c49f807f57fa5dcf07f3f9658/badge.svg)](https://snyk.io/test/github/lguzzon/winurl2html/7bb035d1a4d5d71c49f807f57fa5dcf07f3f9658)
 [![Dependencies](https://david-dm.org/lguzzon/WinUrl2Html.png)](https://david-dm.org/lguzzon/WinUrl2Html)
 [![bitHound Dependencies](https://www.bithound.io/github/lguzzon/WinUrl2Html/badges/dependencies.svg)](https://www.bithound.io/github/lguzzon/WinUrl2Html/master/dependencies/npm)
 [![Code Climate](https://codeclimate.com/github/lguzzon/WinUrl2Html.png)](https://codeclimate.com/github/lguzzon/WinUrl2Html)
