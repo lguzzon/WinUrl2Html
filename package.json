@@ -2,7 +2,7 @@
   "author": "Luca Guzzon <luca.guzzon@gmail.com>",
   "dependencies": {
     "async": "*",
-    "cli": ">=1.0.0"
+    "cli": ">=1.0.1"
   },
   "devDependencies": {
     "eslint": "*"
