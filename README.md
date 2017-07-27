@@ -10,3 +10,6 @@
 Application that replace .url Windows files with an .html file which redirect to the original url.
 
 Author: Luca Guzzon (luca.guzzon@gmail.com)
+
+This repository traffic statistics:
+[![](https://ght.trackingco.de/lguzzon/WinUrl2Html)](https://ght.trackingco.de/)
