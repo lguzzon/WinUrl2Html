@@ -1,7 +1,7 @@
 {
   "author": "Luca Guzzon <luca.guzzon@gmail.com>",
   "dependencies": {
-    "async": ">=2.6.0",
+    "async": ">=2.6.1",
     "cli": ">=1.0.1"
   },
   "devDependencies": {
