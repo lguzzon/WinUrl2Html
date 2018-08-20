@@ -28,5 +28,5 @@
     "devDependencies": {
         "eslint": ">=5.0.1",
         "snyk": "^1.91.0"
-    },
+    }
 }
