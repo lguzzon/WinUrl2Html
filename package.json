@@ -1,13 +1,32 @@
 {
-  "author": "Luca Guzzon <luca.guzzon@gmail.com>",
-  "dependencies": {
-    "async": ">=2.6.0",
-    "cli": ">=1.0.1"
-  },
-  "devDependencies": {
-    "eslint": ">=5.0.1"
-  },
-  "description": "Application that replace .url windows files with an .html file with redirect to the original url",
-  "name": "winurl2html",
-  "version": "1.2.0"
+    "name": "winurl2html",
+    "version": "1.2.0",
+    "description": "Application that replace .url windows files with an .html file with redirect to the original url",
+    "main": "app.js",
+    "scripts": {
+        "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
+        "init": "npm prune --no-progress && npm install --no-progress",
+        "upd": "npx upd && npm run init"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lguzzon/WinUrl2Html.gitt"
+    },
+    "homepage": "https://github.com/lguzzon/WinUrl2Html",
+    "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
+    "keywords": ["node", "windows"],
+    "author": {
+        "name": "Luca Guzzon",
+        "email": "luca.guzzon@gmail.com",
+        "url": "http://lucaguzzon.com"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "async": ">=2.6.0",
+        "cli": ">=1.0.1"
+    },
+    "devDependencies": {
+        "eslint": ">=5.0.1",
+        "snyk": "^1.91.0"
+    },
 }
