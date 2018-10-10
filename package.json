@@ -14,7 +14,10 @@
     },
     "homepage": "https://github.com/lguzzon/WinUrl2Html",
     "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
-    "keywords": ["node", "windows"],
+    "keywords": [
+        "node",
+        "windows"
+    ],
     "author": {
         "name": "Luca Guzzon",
         "email": "luca.guzzon@gmail.com",
@@ -26,7 +29,7 @@
         "cli": ">=1.0.1"
     },
     "devDependencies": {
-        "eslint": ">=5.0.1",
-        "snyk": "^1.91.0"
+        "eslint": "^5.6.1",
+        "snyk": "^1.103.0"
     }
 }
