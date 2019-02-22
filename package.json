@@ -1,6 +1,6 @@
 {
     "name": "winurl2html",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Application that replace .url windows files with an .html file with redirect to the original url",
     "main": "app.js",
     "scripts": {
@@ -29,7 +29,7 @@
         "cli": ">=1.0.1"
     },
     "devDependencies": {
-        "eslint": "^5.6.1",
-        "snyk": "^1.103.0"
+        "eslint": "^5.14.1",
+        "snyk": "^1.134.2"
     }
 }
