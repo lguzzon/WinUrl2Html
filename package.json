@@ -25,11 +25,11 @@
     },
     "license": "MIT",
     "dependencies": {
-        "async": "^3.0.1",
+        "async": "^3.1.0",
         "cli": "^1.0.1"
     },
     "devDependencies": {
-        "eslint": "^6.0.0-alpha.2",
-        "snyk": "^1.167.2"
+        "eslint": "^6.6.0",
+        "snyk": "^1.241.0"
     }
 }
