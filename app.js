@@ -73,7 +73,7 @@ cli.main(function (aArgs, aOptions) {
     lDirectoryQueue.push({
         path: lStartPath
     });
-    lDirectoryQueue.drain = function () {
+    lDirectoryQueue.drain(function () {
         cli.info('All done !!!');
-    };
+    });
 });
