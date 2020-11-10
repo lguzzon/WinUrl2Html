@@ -1,19 +1,19 @@
 'use strict'
-var shortRecursive = 'r'
-var optionsRecursive = {
+const shortRecursive = 'r'
+const optionsRecursive = {
   alias: 'recursive',
   describe: 'Enable search recursive',
   defaultValue: false
 }
-var shortStartPath = 's'
-var optionsStartPath = {
+const shortStartPath = 's'
+const optionsStartPath = {
   alias: 'startpath',
   describe: 'Start path to search in',
   defaultValue: '.'
 }
-var cli = require('cli')
+const cli = require('cli')
   .enable('status', 'version')
-var packageJson = require('./package.json')
+const packageJson = require('./package.json')
 if (packageJson) {
   cli.setApp(packageJson.name, packageJson.version)
 }
@@ -22,11 +22,11 @@ cli.parse({
   startpath: [shortStartPath, optionsStartPath.describe, 'string', optionsStartPath.defaultValue]
 })
 cli.main(function (aArgs, aOptions) {
-  var fs = require('fs')
-  var path = require('path')
-  var async = require('async')
-  var lStartPath = path.resolve(aOptions.startpath)
-  var lDirectoryQueue
+  const fs = require('fs')
+  const path = require('path')
+  const async = require('async')
+  const lStartPath = path.resolve(aOptions.startpath)
+  let lDirectoryQueue
 
   function lDirectoryWorker (aTask, aTaskCallBack) {
     fs.stat(aTask.path, function (aStatError, aStats) {
@@ -47,11 +47,11 @@ cli.main(function (aArgs, aOptions) {
       } else {
         if (aStats.isFile() && aTask.path.match(/\.[uU][rR][lL]$/)) {
           cli.info('Replacing:' + aTask.path)
-          var lNewFileName = aTask.path.match(/(.*)\.[uU][rR][lL]$/)[1] + '.html'
-          var lFileContent = fs.readFileSync(aTask.path, 'utf8')
-          var lFileContentMatch = lFileContent.match(/=(.*)/)
-          var lNewFileContentTemplate = '<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=XXX"></HEAD><BODY></BODY>'
-          var lNewFileContent = ''
+          const lNewFileName = aTask.path.match(/(.*)\.[uU][rR][lL]$/)[1] + '.html'
+          const lFileContent = fs.readFileSync(aTask.path, 'utf8')
+          const lFileContentMatch = lFileContent.match(/=(.*)/)
+          const lNewFileContentTemplate = '<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=XXX"></HEAD><BODY></BODY>'
+          let lNewFileContent = ''
           if (lFileContentMatch) {
             lNewFileContent = lNewFileContentTemplate.replace('XXX', lFileContentMatch[1])
             fs.writeFileSync(lNewFileName, lNewFileContent, 'utf8')
