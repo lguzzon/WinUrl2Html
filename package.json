@@ -29,7 +29,7 @@
         "cli": "^1.0.1"
     },
     "devDependencies": {
-        "eslint": "^7.17.0",
+        "eslint": "^7.23.0",
         "snyk": "^1.437.3"
     }
 }
