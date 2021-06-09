@@ -1,2 +1,2 @@
 
-@npx -p upd upd.cmd -c 4 -g -a
+@npx -p upd upd.cmd -g -a
