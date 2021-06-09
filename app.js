@@ -26,7 +26,7 @@ cli.main(function (aArgs, aOptions) {
   const path = require('path')
   const async = require('async')
   const lStartPath = path.resolve(aOptions.startpath)
-  let lDirectoryQueue
+  const lDirectoryQueue = async.queue(lDirectoryWorker, 32)
 
   function lDirectoryWorker (aTask, aTaskCallBack) {
     fs.stat(aTask.path, function (aStatError, aStats) {
@@ -66,7 +66,6 @@ cli.main(function (aArgs, aOptions) {
   }
   cli.info('Working in: ' + path.resolve(process.cwd()))
   cli.info('Searching in: ' + lStartPath)
-  lDirectoryQueue = async.queue(lDirectoryWorker, 32)
   lDirectoryQueue.drain(function () {
     cli.info('All done !!!')
   })
