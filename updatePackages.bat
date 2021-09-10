@@ -1,2 +1,2 @@
 
-@npx -p upd upd.cmd -g -a
+@npx -y -p npm-check-updates ncu -u
