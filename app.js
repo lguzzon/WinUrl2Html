@@ -28,7 +28,7 @@ cli.main(function (aArgs, aOptions) {
   const lStartPath = lPath.resolve(aOptions.startpath)
   const lDirectoryQueue = lAsync.queue(lDirectoryWorker, 32)
 
-  function lReplaceFileContent(aTask) {
+  function lReplaceFileContent (aTask) {
     cli.info('Replacing:' + aTask.path)
     const lNewFileName = aTask.path.match(/(.*)\.[uU][rR][lL]$/)[1] + '.html'
     const lFileContent = lFs.readFileSync(aTask.path, 'utf8')
@@ -44,7 +44,7 @@ cli.main(function (aArgs, aOptions) {
     }
   }
 
-  function lDirectoryWorker(aTask, aTaskCallBack) {
+  function lDirectoryWorker (aTask, aTaskCallBack) {
     lFs.stat(aTask.path, function (aStatError, aStats) {
       if (aStatError) {
         aTaskCallBack(aStatError)
@@ -77,4 +77,3 @@ cli.main(function (aArgs, aOptions) {
     path: lStartPath
   })
 })
-
