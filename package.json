@@ -25,12 +25,12 @@
     },
     "license": "MIT",
     "dependencies": {
-        "async": "^3.2.0",
+        "async": "^3.2.1",
         "cli": "^1.0.1",
-        "normalize-url": ">=7.0.0"
+        "normalize-url": ">=7.0.2"
     },
     "devDependencies": {
-        "eslint": "7.29.0",
-        "snyk": "1.646.0"
+        "eslint": "7.32.0",
+        "snyk": "1.704.0"
     }
 }
