@@ -1,6 +1,6 @@
 {
     "name": "winurl2html",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "description": "Application that replace .url windows files with an .html file with redirect to the original url",
     "main": "app.js",
     "scripts": {
