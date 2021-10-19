@@ -5,8 +5,8 @@
     "main": "app.js",
     "scripts": {
         "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
-        "init": "npm prune --no-progress && npm install --no-progress --legacy-peer-deps",
-        "upd": "npx -y -p npm-check-updates ncu -u && npm run init"
+        "ins": "( npm prune --no-progress || npm prune --no-progress --legacy-peer-deps ) && ( npm install --no-progress || npm install --no-progress --legacy-peer-deps )",
+        "upd": "npx -y -p npm-check-updates ncu -u && npm run ins"
     },
     "repository": {
         "type": "git",
@@ -35,6 +35,6 @@
         "eslint-plugin-import": "2.25.2",
         "eslint-plugin-node": "11.1.0",
         "eslint-plugin-promise": "5.1.0",
-        "snyk": "1.737.0"
+        "snyk": "1.739.0"
     }
 }
