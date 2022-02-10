@@ -27,7 +27,7 @@
     "dependencies": {
         "async": "^3.2.1",
         "cli": "^1.0.1",
-        "normalize-url": ">=7.0.2"
+        "normalize-url": ">=7.0.3"
     },
     "devDependencies": {
         "eslint": "8.0.1",
