@@ -26,17 +26,17 @@
     },
     "license": "MIT",
     "dependencies": {
-        "async": "^3.2.3",
+        "async": "^3.2.4",
         "cli": "^1.0.1",
         "normalize-url": ">=7.0.3"
     },
     "devDependencies": {
-        "eslint": "8.14.0",
+        "eslint": "8.17.0",
         "eslint-config-standard": "^17.0.0",
         "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-n": "^15.2.0",
+        "eslint-plugin-n": "^15.2.2",
         "eslint-plugin-node": "11.1.0",
         "eslint-plugin-promise": "^6.0.0",
-        "snyk": "1.913.0"
+        "snyk": "1.950.0"
     }
 }
