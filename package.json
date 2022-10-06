@@ -37,6 +37,6 @@
         "eslint-plugin-n": "^15.2.2",
         "eslint-plugin-node": "11.1.0",
         "eslint-plugin-promise": "^6.0.0",
-        "snyk": "1.950.0"
+        "snyk": "1.996.0"
     }
 }
