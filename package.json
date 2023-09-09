@@ -1,35 +1,16 @@
 {
-    "name": "winurl2html",
-    "version": "1.4.0",
-    "description": "Application that replace .url windows files with an .html file with redirect to the original url",
-    "main": "app.js",
-    "scripts": {
-        "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
-        "ins": "( npm prune --no-progress || npm prune --no-progress --legacy-peer-deps ) && ( npm install --no-progress || npm install --no-progress --legacy-peer-deps )",
-        "upd": "npx -y -p npm-check-updates ncu -u && npm run ins",
-        "fix": "npx -y eslint --fix ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lguzzon/WinUrl2Html.git"
-    },
-    "homepage": "https://github.com/lguzzon/WinUrl2Html",
-    "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
-    "keywords": [
-        "node",
-        "windows"
-    ],
     "author": {
-        "name": "Luca Guzzon",
         "email": "luca.guzzon@gmail.com",
+        "name": "Luca Guzzon",
         "url": "http://lucaguzzon.com"
     },
-    "license": "MIT",
+    "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
     "dependencies": {
         "async": "^3.2.4",
         "cli": "^1.0.1",
         "normalize-url": ">=8.0.0"
     },
+    "description": "Application that replace .url windows files with an .html file with redirect to the original url",
     "devDependencies": {
         "eslint": "8.49.0",
         "eslint-config-standard": "^17.1.0",
@@ -38,5 +19,24 @@
         "eslint-plugin-node": "11.1.0",
         "eslint-plugin-promise": "^6.1.1",
         "snyk": "^1.1215.0"
-    }
+    },
+    "homepage": "https://github.com/lguzzon/WinUrl2Html",
+    "keywords": [
+        "node",
+        "windows"
+    ],
+    "license": "MIT",
+    "main": "app.js",
+    "name": "winurl2html",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lguzzon/WinUrl2Html.git"
+    },
+    "scripts": {
+        "fix": "npx -y eslint --fix .",
+        "ins": "( npm prune --no-progress || npm prune --no-progress --legacy-peer-deps ) && ( npm install --no-progress || npm install --no-progress --legacy-peer-deps )",
+        "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
+        "upd": "npx -y -p npm-check-updates ncu -u && npm run ins"
+    },
+    "version": "1.4.0"
 }
