@@ -1,4 +1,7 @@
+// @ts-check
+
 'use strict'
+
 const shortRecursive = 'r'
 const optionsRecursive = {
   alias: 'recursive',
@@ -13,6 +16,7 @@ const optionsStartPath = {
 }
 const cli = require('cli')
   .enable('status', 'version')
+// @ts-ignore
 const packageJson = require('./package.json')
 if (packageJson) {
   cli.setApp(packageJson.name, packageJson.version)
