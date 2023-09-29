@@ -16,7 +16,7 @@ SET "CURRENT_DIR=%CD%"
 SET "SCRIPT_DIR=%~dp0"
 
 PUSHD "%SCRIPT_DIR%"
-node --prof "%SCRIPT_DIR%app.js" -r -s %1
+node --prof "%SCRIPT_DIR%app.cjs" -r -s %1
 SET "expanded_list="
 FOR %%F in (isolate*.log) DO (
 	CALL SET expanded_list=%%expanded_list%% "%%F"
