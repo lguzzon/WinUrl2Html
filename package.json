@@ -12,13 +12,16 @@
   },
   "description": "Application that replace .url windows files with an .html file with redirect to the original url",
   "devDependencies": {
+    "@rollup/plugin-json": "^6.0.0",
     "eslint": "8.50.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-n": "^16.1.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "snyk": "^1.1226.0"
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "snyk": "^1.1228.0"
   },
   "homepage": "https://github.com/lguzzon/WinUrl2Html",
   "keywords": [
@@ -26,19 +29,22 @@
     "windows"
   ],
   "license": "MIT",
-  "main": "app.js",
+  "main": "app.cjs",
   "name": "winurl2html",
   "repository": {
     "type": "git",
     "url": "https://github.com/lguzzon/WinUrl2Html.git"
   },
   "scripts": {
-    "bld": "bun build app.js --target bun --outdir dist",
-    "exe": "bun build app.js --compile --outfile winUrl2Html",
-    "fix": "bunx standard --fix ./app.js && bunx eslint --fix ./app.js",
-    "ins": "(npm -g list bun || npm -g i bun) && bun install",
+    "rollup": "npx -y rollup -c && npx -y standard --fix ./runMe.cjs && npx -y eslint --fix ./runMe.cjs",
+    "bun:bld": "bun build app.cjs --target bun --outdir dist",
+    "bun:exe": "bun build app.cjs --compile --outfile winUrl2Html",
+    "bun:fix": "bunx standard --fix ./app.cjs && bunx eslint --fix ./app.cjs",
+    "npm:fix": "npx -y standard --fix ./app.cjs && npx -y eslint --fix ./app.cjs",
+    "bun:ins": "(npm -g list bun || npm -g i bun) && bun install",
     "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
-    "upd": "bunx npm-check-updates -u && bun run ins"
+    "bun:upd": "bunx npm-check-updates -u && bun run bun:ins",
+    "npm:upd": "npx -y npm-check-updates -u && npm install"
   },
   "version": "1.4.0"
 }
