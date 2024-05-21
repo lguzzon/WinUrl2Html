@@ -1,42 +1,51 @@
 {
-    "name": "winurl2html",
-    "version": "1.4.0",
-    "description": "Application that replace .url windows files with an .html file with redirect to the original url",
-    "main": "app.js",
-    "scripts": {
-        "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
-        "ins": "( npm prune --no-progress || npm prune --no-progress --legacy-peer-deps ) && ( npm install --no-progress || npm install --no-progress --legacy-peer-deps )",
-        "upd": "npx -y -p npm-check-updates ncu -u && npm run ins",
-        "fix": "npx -y eslint --fix ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lguzzon/WinUrl2Html.git"
-    },
-    "homepage": "https://github.com/lguzzon/WinUrl2Html",
-    "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
-    "keywords": [
-        "node",
-        "windows"
-    ],
-    "author": {
-        "name": "Luca Guzzon",
-        "email": "luca.guzzon@gmail.com",
-        "url": "http://lucaguzzon.com"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "async": "^3.2.4",
-        "cli": "^1.0.1",
-        "normalize-url": ">=7.0.3"
-    },
-    "devDependencies": {
-        "eslint": "8.17.0",
-        "eslint-config-standard": "^17.0.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-n": "^15.2.2",
-        "eslint-plugin-node": "11.1.0",
-        "eslint-plugin-promise": "^6.0.0",
-        "snyk": "1.950.0"
-    }
+  "author": {
+    "email": "luca.guzzon@gmail.com",
+    "name": "Luca Guzzon",
+    "url": "http://lucaguzzon.com"
+  },
+  "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
+  "dependencies": {
+    "async": "^3.2.4",
+    "cli": "^1.0.1",
+    "normalize-url": ">=8.0.0"
+  },
+  "description": "Application that replace .url windows files with an .html file with redirect to the original url",
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.0.0",
+    "eslint": "8.50.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "snyk": "^1.1228.0"
+  },
+  "homepage": "https://github.com/lguzzon/WinUrl2Html",
+  "keywords": [
+    "node",
+    "windows"
+  ],
+  "license": "MIT",
+  "main": "app.cjs",
+  "name": "winurl2html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lguzzon/WinUrl2Html.git"
+  },
+  "scripts": {
+    "rollup": "npx -y rollup -c && npx -y standard --fix ./runMe.cjs && npx -y eslint --fix ./runMe.cjs",
+    "bun:bld": "bun build app.cjs --target bun --outdir dist",
+    "bun:exe": "bun build app.cjs --compile --outfile winUrl2Html",
+    "bun:fix": "bunx standard --fix ./app.cjs && bunx eslint --fix ./app.cjs",
+    "npm:fix": "npx -y standard --fix ./app.cjs && npx -y eslint --fix ./app.cjs",
+    "bun:ins": "(npm -g list bun || npm -g i bun) && bun install",
+    "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
+    "bun:upd": "bunx npm-check-updates -u && bun run bun:ins",
+    "npm:upd": "npx -y npm-check-updates -i --filter group -u --peer && npm install",
+    "npm:biome":"npx -y @biomejs/biome check --apply-unsafe app.cjs"
+  },
+  "version": "1.4.1"
 }

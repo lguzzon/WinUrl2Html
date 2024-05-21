@@ -15,7 +15,7 @@ SET "LOCAL_ERROR=0"
 SET "CURRENT_DIR=%CD%"
 SET "SCRIPT_DIR=%~dp0"
 
-node "%SCRIPT_DIR%app.js" -r -s "D:\lg\GFT"
+node "%SCRIPT_DIR%app.cjs" -r -s "D:\lg\GFT"
 
 :LOCAL_EOF
 ENDLOCAL & EXIT /B %LOCAL_ERROR%
