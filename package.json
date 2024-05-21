@@ -44,7 +44,8 @@
     "bun:ins": "(npm -g list bun || npm -g i bun) && bun install",
     "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
     "bun:upd": "bunx npm-check-updates -u && bun run bun:ins",
-    "npm:upd": "npx -y npm-check-updates -u && npm install"
+    "npm:upd": "npx -y npm-check-updates -i --filter group -u --peer && npm install",
+    "npm:biome":"npx -y @biomejs/biome check --apply-unsafe app.cjs"
   },
-  "version": "1.4.0"
+  "version": "1.4.1"
 }
