@@ -2,82 +2,96 @@
 
 'use strict'
 
-const shortRecursive = 'r'
-const optionsRecursive = {
+const shortRecursiveOption = 'r'
+const recursiveOption = {
   alias: 'recursive',
   describe: 'Enable search recursive',
   defaultValue: false
 }
-const shortStartPath = 's'
-const optionsStartPath = {
+
+const shortStartPathOption = 's'
+const startPathOption = {
   alias: 'startpath',
   describe: 'Start path to search in',
   defaultValue: '.'
 }
-const cli = require('cli')
-  .enable('status', 'version')
-// @ts-ignore
+
+const cli = require('cli').enable('status', 'version')
 const packageJson = require('./package.json')
+
 if (packageJson) {
   cli.setApp(packageJson.name, packageJson.version)
 }
-cli.parse({
-  recursive: [shortRecursive, optionsRecursive.describe],
-  startpath: [shortStartPath, optionsStartPath.describe, 'string', optionsStartPath.defaultValue]
-})
-cli.main(function (aArgs, aOptions) {
-  const lFs = require('fs')
-  const lPath = require('path')
-  const lAsync = require('async')
-  const lStartPath = lPath.resolve(aOptions.startpath)
-  const lDirectoryQueue = lAsync.queue(lDirectoryWorker, 32)
 
-  function lReplaceFileContent (aTask) {
-    cli.info('Replacing:' + aTask.path)
-    const lNewFileName = aTask.path.match(/(.*)\.[uU][rR][lL]$/)[1] + '.html'
-    const lFileContent = lFs.readFileSync(aTask.path, 'utf8')
-    const lFileContentMatch = lFileContent.match(/=(.*)/)
-    const lNewFileContentTemplate = '<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=XXX"></HEAD><BODY></BODY>'
-    let lNewFileContent = ''
-    if (lFileContentMatch) {
-      lNewFileContent = lNewFileContentTemplate.replace('XXX', lFileContentMatch[1])
-      lFs.writeFileSync(lNewFileName, lNewFileContent, 'utf8')
-      lFs.unlinkSync(aTask.path)
+cli.parse({
+  recursive: [shortRecursiveOption, recursiveOption.describe],
+  startpath: [
+    shortStartPathOption,
+    startPathOption.describe,
+    'string',
+    startPathOption.defaultValue
+  ]
+})
+
+cli.main((args, options) => {
+  const fs = require('node:fs')
+  const path = require('node:path')
+  const asyncQueue = require('async').queue
+
+  const startPath = path.resolve(options.startpath)
+  const directoryQueue = asyncQueue(directoryWorker, 32)
+
+  function replaceFileContent (task) {
+    cli.info(`Replacing:${task.filePath}`)
+
+    const newFileName = task.filePath.replace(/\.url$/i, '.html')
+    const fileContent = fs.readFileSync(task.filePath, 'utf8')
+    const fileContentMatch = fileContent.match(/=(.*)/)
+
+    if (fileContentMatch) {
+      const newFileContent = `<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=${fileContentMatch[1]}"></HEAD><BODY></BODY>`
+      fs.writeFileSync(newFileName, newFileContent, 'utf8')
+      fs.unlinkSync(task.filePath)
     } else {
-      cli.error('No match found: [' + lFileContent + ']')
+      cli.error(`No match found: [${fileContent}]`)
     }
   }
 
-  function lDirectoryWorker (aTask, aTaskCallBack) {
-    lFs.stat(aTask.path, function (aStatError, aStats) {
-      if (aStatError) {
-        aTaskCallBack(aStatError)
-      } else if (aStats.isDirectory()) {
-        // cli.info('Processing :' + aTask.path);
-        lFs.readdir(aTask.path, function (aReadDirError, aReadDirFiles) {
-          if (!aReadDirError) {
-            aReadDirFiles.forEach(function (aReadDirFile) {
-              lDirectoryQueue.push({
-                path: lPath.join(aTask.path, aReadDirFile)
-              })
+  function directoryWorker (task, taskCallBack) {
+    fs.stat(task.filePath, (statError, stats) => {
+      if (statError) {
+        return taskCallBack(statError)
+      }
+
+      if (stats.isDirectory()) {
+        fs.readdir(task.filePath, (readDirError, readDirFiles) => {
+          if (readDirError) {
+            return taskCallBack(readDirError)
+          }
+
+          for (const fileName of readDirFiles) {
+            directoryQueue.push({
+              filePath: path.join(task.filePath, fileName)
             })
           }
-          aTaskCallBack(aReadDirError)
+
+          taskCallBack()
         })
       } else {
-        if (aStats.isFile() && aTask.path.match(/\.[uU][rR][lL]$/)) {
-          lReplaceFileContent(aTask)
+        if (stats.isFile() && /\.url$/i.test(task.filePath)) {
+          replaceFileContent(task)
         }
-        aTaskCallBack()
+        taskCallBack()
       }
     })
   }
-  cli.info('Working in: ' + lPath.resolve(process.cwd()))
-  cli.info('Searching in: ' + lStartPath)
-  lDirectoryQueue.drain(function () {
+
+  cli.info(`Working in: ${path.resolve(process.cwd())}`)
+  cli.info(`Searching in: ${startPath}`)
+
+  directoryQueue.drain(() => {
     cli.info('All done !!!')
   })
-  lDirectoryQueue.push({
-    path: lStartPath
-  })
+
+  directoryQueue.push({ filePath: startPath })
 })
