@@ -33,7 +33,7 @@ cli.parse({
   ]
 })
 
-cli.main((args, options) => {
+cli.main((arguments_, options) => {
   const fs = require('node:fs')
   const path = require('node:path')
   const asyncQueue = require('async').queue
@@ -81,6 +81,7 @@ cli.main((args, options) => {
         if (stats.isFile() && /\.url$/i.test(task.filePath)) {
           replaceFileContent(task)
         }
+
         taskCallBack()
       }
     })
