@@ -43,11 +43,11 @@ cli.main(async (arguments_, options) => {
   async function replaceFileContent (filePath) {
     cli.info(`Replacing: ${filePath}`)
 
-    const newFileName = filePath.replace(urlRegex, '.html')
     const fileContent = await fs.readFile(filePath, 'utf8')
     const fileContentMatch = fileContent.match(contentRegex)
 
     if (fileContentMatch) {
+      const newFileName = filePath.replace(urlRegex, '.html')
       const newFileContent = `<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=${fileContentMatch[1]}"></HEAD><BODY></BODY>`
       await Promise.all([
         fs.writeFile(newFileName, newFileContent, 'utf8'),
