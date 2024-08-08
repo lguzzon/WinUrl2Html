@@ -1,93 +1,83 @@
 // @ts-check
-
 'use strict'
 
-const shortRecursiveOption = 'r'
-const recursiveOption = {
-  alias: 'recursive',
-  describe: 'Enable search recursive',
-  defaultValue: false
-}
-
-const shortStartPathOption = 's'
-const startPathOption = {
-  alias: 'startpath',
-  describe: 'Start path to search in',
-  defaultValue: '.'
-}
-
+const fs = require('node:fs').promises
+const path = require('node:path')
+const { queue } = require('async')
 const cli = require('cli').enable('status', 'version')
 const packageJson = require('./package.json')
+
+const OPTIONS = new Map([
+  ['recursive', {
+    alias: 'r',
+    describe: 'Enable search recursive',
+    defaultValue: false
+  }],
+  ['startpath', {
+    alias: 's',
+    describe: 'Start path to search in',
+    defaultValue: '.'
+  }]
+])
 
 if (packageJson) {
   cli.setApp(packageJson.name, packageJson.version)
 }
 
 cli.parse({
-  recursive: [shortRecursiveOption, recursiveOption.describe],
+  recursive: [OPTIONS.get('recursive').alias, OPTIONS.get('recursive').describe],
   startpath: [
-    shortStartPathOption,
-    startPathOption.describe,
+    OPTIONS.get('startpath').alias,
+    OPTIONS.get('startpath').describe,
     'string',
-    startPathOption.defaultValue
+    OPTIONS.get('startpath').defaultValue
   ]
 })
 
-cli.main((arguments_, options) => {
-  const fs = require('node:fs')
-  const path = require('node:path')
-  const asyncQueue = require('async').queue
-
+cli.main(async (arguments_, options) => {
   const startPath = path.resolve(options.startpath)
-  const directoryQueue = asyncQueue(directoryWorker, 32)
+  const directoryQueue = queue(directoryWorker, 32)
+  const urlRegex = /\.url$/i
+  const contentRegex = /=(.*)/
 
-  function replaceFileContent (task) {
-    cli.info(`Replacing:${task.filePath}`)
+  async function replaceFileContent (filePath) {
+    cli.info(`Replacing: ${filePath}`)
 
-    const newFileName = task.filePath.replace(/\.url$/i, '.html')
-    const fileContent = fs.readFileSync(task.filePath, 'utf8')
-    const fileContentMatch = fileContent.match(/=(.*)/)
+    const newFileName = filePath.replace(urlRegex, '.html')
+    const fileContent = await fs.readFile(filePath, 'utf8')
+    const fileContentMatch = fileContent.match(contentRegex)
 
     if (fileContentMatch) {
       const newFileContent = `<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=${fileContentMatch[1]}"></HEAD><BODY></BODY>`
-      fs.writeFileSync(newFileName, newFileContent, 'utf8')
-      fs.unlinkSync(task.filePath)
+      await Promise.all([
+        fs.writeFile(newFileName, newFileContent, 'utf8'),
+        fs.unlink(filePath)
+      ])
     } else {
       cli.error(`No match found: [${fileContent}]`)
     }
   }
 
-  function directoryWorker (task, taskCallBack) {
-    fs.stat(task.filePath, (statError, stats) => {
-      if (statError) {
-        return taskCallBack(statError)
-      }
+  async function directoryWorker (task) {
+    try {
+      const stats = await fs.stat(task.filePath)
 
-      if (stats.isDirectory()) {
-        fs.readdir(task.filePath, (readDirError, readDirFiles) => {
-          if (readDirError) {
-            return taskCallBack(readDirError)
-          }
-
-          for (const fileName of readDirFiles) {
-            directoryQueue.push({
-              filePath: path.join(task.filePath, fileName)
-            })
-          }
-
-          taskCallBack()
-        })
-      } else {
-        if (stats.isFile() && /\.url$/i.test(task.filePath)) {
-          replaceFileContent(task)
+      if (stats.isDirectory() && options.recursive) {
+        const files = await fs.readdir(task.filePath)
+        for (const fileName of files) {
+          directoryQueue.push({
+            filePath: path.join(task.filePath, fileName)
+          })
         }
-
-        taskCallBack()
+      } else if (stats.isFile() && urlRegex.test(task.filePath)) {
+        await replaceFileContent(task.filePath)
       }
-    })
+    } catch (error) {
+      cli.error(`Error processing ${task.filePath}: ${error.message}`)
+    }
   }
 
-  cli.info(`Working in: ${path.resolve(process.cwd())}`)
+  cli.info(`Working in: ${process.cwd()}`)
   cli.info(`Searching in: ${startPath}`)
 
   directoryQueue.drain(() => {

@@ -39,7 +39,7 @@
     "rollup": "npx -y rollup -c && npx -y standard --fix ./runMe.cjs && npx -y eslint --fix ./runMe.cjs",
     "bun:bld": "bun build app.cjs --target bun --outdir dist",
     "bun:exe": "bun build app.cjs --compile --outfile winUrl2Html",
-    "bun:fix": "bun x -y @biomejs/biome check --write --unsafe app.cjs ; bun x xo --fix app.cjs ; bun x standard --fix ./app.cjs ; bun x eslint --fix ./app.cjs",
+    "bun:fix": "bun x biome check --write --unsafe app.cjs ; bun x xo --fix app.cjs ; bun x standard --fix ./app.cjs ; bun x eslint --fix ./app.cjs",
     "npm:fix": "npx -y standard --fix ./app.cjs && npx -y eslint --fix ./app.cjs",
     "bun:ins": "(npm -g list bun || npm -g i bun) && bun install",
     "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
