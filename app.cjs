@@ -8,16 +8,22 @@ const cli = require('cli').enable('status', 'version')
 const packageJson = require('./package.json')
 
 const OPTIONS = new Map([
-  ['recursive', {
-    alias: 'r',
-    describe: 'Enable search recursive',
-    defaultValue: false
-  }],
-  ['startpath', {
-    alias: 's',
-    describe: 'Start path to search in',
-    defaultValue: '.'
-  }]
+  [
+    'recursive',
+    {
+      alias: 'r',
+      describe: 'Enable search recursive',
+      defaultValue: false
+    }
+  ],
+  [
+    'startpath',
+    {
+      alias: 's',
+      describe: 'Start path to search in',
+      defaultValue: '.'
+    }
+  ]
 ])
 
 if (packageJson) {
@@ -25,7 +31,10 @@ if (packageJson) {
 }
 
 cli.parse({
-  recursive: [OPTIONS.get('recursive').alias, OPTIONS.get('recursive').describe],
+  recursive: [
+    OPTIONS.get('recursive').alias,
+    OPTIONS.get('recursive').describe
+  ],
   startpath: [
     OPTIONS.get('startpath').alias,
     OPTIONS.get('startpath').describe,

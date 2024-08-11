@@ -36,16 +36,53 @@
     "url": "https://github.com/lguzzon/WinUrl2Html.git"
   },
   "scripts": {
-    "rollup": "npx -y rollup -c && npx -y standard --fix ./runMe.cjs && npx -y eslint --fix ./runMe.cjs",
     "bun:bld": "bun build app.cjs --target bun --outdir dist",
     "bun:exe": "bun build app.cjs --compile --outfile winUrl2Html",
-    "bun:fix": "bun x biome check --write --unsafe app.cjs ; bun x xo --fix app.cjs ; bun x standard --fix ./app.cjs ; bun x eslint --fix ./app.cjs",
-    "npm:fix": "npx -y standard --fix ./app.cjs && npx -y eslint --fix ./app.cjs",
+    "bun:fix": "bun x --bun @biomejs/biome check --write --unsafe app.cjs ; bun x xo --fix app.cjs ; bun x standard --fix ./app.cjs ; bun x eslint --fix ./app.cjs",
     "bun:ins": "(npm -g list bun || npm -g i bun) && bun install",
-    "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
     "bun:upd": "bun x npm-check-updates -u && bun run bun:ins",
+    "npm:biome": "npx -y @biomejs/biome check --write --unsafe app.cjs",
+    "npm:fix": "npx -y standard --fix ./app.cjs && npx -y eslint --fix ./app.cjs",
     "npm:upd": "npx -y npm-check-updates -i --filter group -u --peer && npm install",
-    "npm:biome":"npx -y @biomejs/biome check --write --unsafe app.cjs"
+    "rollup": "npx -y rollup -c && npx -y standard --fix ./runMe.cjs && npx -y eslint --fix ./runMe.cjs",
+    "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
+    "tool:bun:install": "npm run tool:pnpm:install && (which bun >/dev/null 2>&1 || pnpm install -g bun) && bun upgrade --latest",
+    "tool:pnpm:install": "which pnpm >/dev/null 2>&1 || npm install -g pnpm"
   },
-  "version": "1.4.1"
+  "version": "1.4.1",
+  "xo": {
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "comma-dangle": [
+        "error",
+        "never"
+      ],
+      "indent": [
+        "error",
+        2
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "operator-linebreak": [
+        "error",
+        "before"
+      ],
+      "quotes": [
+        "error",
+        "single",
+        {
+          "avoidEscape": true
+        }
+      ],
+      "semi": [
+        "error",
+        "never"
+      ]
+    }
+  }
 }
