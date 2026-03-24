@@ -1,0 +1,52 @@
+{
+  "categories": {
+    "correctness": "warn",
+    "style": "warn",
+    "suspicious": "warn"
+  },
+  "env": {
+    "builtin": true
+  },
+  "globals": {},
+  "ignorePatterns": [],
+  "plugins": null,
+  "rules": {
+    "eqeqeq": "off",
+    "no-debugger": "warn",
+    "no-unused-vars": "warn",
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "semi": "off"
+  },
+  "settings": {
+    "jsdoc": {
+      "augmentsExtendsReplacesDocs": false,
+      "exemptDestructuredRootsFromChecks": false,
+      "ignoreInternal": false,
+      "ignorePrivate": false,
+      "ignoreReplacesDocs": true,
+      "implementsReplacesDocs": false,
+      "overrideReplacesDocs": true,
+      "tagNamePreference": {}
+    },
+    "jsx-a11y": {
+      "attributes": {},
+      "components": {},
+      "polymorphicPropName": null
+    },
+    "next": {
+      "rootDir": []
+    },
+    "react": {
+      "componentWrapperFunctions": [],
+      "formComponents": [],
+      "linkComponents": [],
+      "version": null
+    },
+    "vitest": {
+      "typecheck": false
+    }
+  }
+}

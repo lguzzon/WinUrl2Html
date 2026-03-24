@@ -7,21 +7,24 @@ const { queue } = require('async')
 const cli = require('cli').enable('status', 'version')
 const packageJson = require('./package.json')
 
+const CONCURRENCY_LIMIT = 32
+const MATCH_GROUP_INDEX = 1
+
 const OPTIONS = new Map([
   [
     'recursive',
     {
       alias: 'r',
-      describe: 'Enable search recursive',
-      defaultValue: false
+      defaultValue: false,
+      describe: 'Enable search recursive'
     }
   ],
   [
     'startpath',
     {
       alias: 's',
-      describe: 'Start path to search in',
-      defaultValue: '.'
+      defaultValue: '.',
+      describe: 'Start path to search in'
     }
   ]
 ])
@@ -44,12 +47,10 @@ cli.parse({
 })
 
 cli.main(async (arguments_, options) => {
-  const startPath = path.resolve(options.startpath)
-  const directoryQueue = queue(directoryWorker, 32)
   const urlRegex = /\.url$/i
   const contentRegex = /=(.*)/
 
-  async function replaceFileContent (filePath) {
+  const replaceFileContent = async function  replaceFileContent(filePath) {
     cli.info(`Replacing: ${filePath}`)
 
     const fileContent = await fs.readFile(filePath, 'utf8')
@@ -57,7 +58,7 @@ cli.main(async (arguments_, options) => {
 
     if (fileContentMatch) {
       const newFileName = filePath.replace(urlRegex, '.html')
-      const newFileContent = `<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=${fileContentMatch[1]}"></HEAD><BODY></BODY>`
+      const newFileContent = `<HTML><HEAD><META HTTP-EQUIV="Refresh" CONTENT="0; URL=${fileContentMatch[MATCH_GROUP_INDEX]}"></HEAD><BODY></BODY>`
       await Promise.all([
         fs.writeFile(newFileName, newFileContent, 'utf8'),
         fs.unlink(filePath)
@@ -67,7 +68,7 @@ cli.main(async (arguments_, options) => {
     }
   }
 
-  async function directoryWorker (task) {
+  const directoryWorker = async function  directoryWorker(task) {
     try {
       const stats = await fs.stat(task.filePath)
 
@@ -86,9 +87,12 @@ cli.main(async (arguments_, options) => {
     }
   }
 
+  const startPath = path.resolve(options.startpath)
+
   cli.info(`Working in: ${process.cwd()}`)
   cli.info(`Searching in: ${startPath}`)
 
+  const directoryQueue = queue(directoryWorker, CONCURRENCY_LIMIT)
   directoryQueue.drain(() => {
     cli.info('All done !!!')
   })

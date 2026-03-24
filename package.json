@@ -6,22 +6,16 @@
   },
   "bugs": "https://github.com/lguzzon/WinUrl2Html/issues",
   "dependencies": {
-    "async": "^3.2.4",
+    "async": "^3.2.6",
     "cli": "^1.0.1",
-    "normalize-url": ">=8.0.0"
+    "normalize-url": ">=9.0.0"
   },
   "description": "Application that replace .url windows files with an .html file with redirect to the original url",
   "devDependencies": {
-    "@rollup/plugin-json": "^6.0.0",
-    "eslint": "8.50.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-n": "^16.1.0",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "^6.1.1",
+    "@rollup/plugin-json": "^6.1.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "snyk": "^1.1228.0"
+    "snyk": "^1.1303.2"
   },
   "homepage": "https://github.com/lguzzon/WinUrl2Html",
   "keywords": [
@@ -36,53 +30,20 @@
     "url": "https://github.com/lguzzon/WinUrl2Html.git"
   },
   "scripts": {
+    "_:upd":"bun bun:upd",
+    "_:bld":"bun bun:bld",
+    "_:fix":"bun bun:fix",
+    "_:exe":"bun bun:exe",
     "bun:bld": "bun build app.cjs --target bun --outdir dist",
     "bun:exe": "bun build app.cjs --compile --outfile winUrl2Html",
-    "bun:fix": "bun x --bun @biomejs/biome check --write --unsafe app.cjs ; bun x xo --fix app.cjs ; bun x standard --fix ./app.cjs ; bun x eslint --fix ./app.cjs",
-    "bun:ins": "(npm -g list bun || npm -g i bun) && bun install",
+    "bun:fix": "bun x oxfmt --write app.cjs && bun x oxlint --fix app.cjs",
+    "bun:ins": "(bun --version || npm -g list bun || npm -g i bun) && bun install",
     "bun:upd": "bun x npm-check-updates -u && bun run bun:ins",
-    "npm:biome": "npx -y @biomejs/biome check --write --unsafe app.cjs",
-    "npm:fix": "npx -y standard --fix ./app.cjs && npx -y eslint --fix ./app.cjs",
     "npm:upd": "npx -y npm-check-updates -i --filter group -u --peer && npm install",
-    "rollup": "npx -y rollup -c && npx -y standard --fix ./runMe.cjs && npx -y eslint --fix ./runMe.cjs",
+    "rollup": "bunx -y rollup -c && bunx -y oxlint --fix ./runMe.cjs",
     "test": "snyk auth && snyk test && echo \"Error: no test specified\"",
     "tool:bun:install": "npm run tool:pnpm:install && (which bun >/dev/null 2>&1 || pnpm install -g bun) && bun upgrade --latest",
     "tool:pnpm:install": "which pnpm >/dev/null 2>&1 || npm install -g pnpm"
   },
-  "version": "1.4.1",
-  "xo": {
-    "rules": {
-      "arrow-parens": [
-        "error",
-        "always"
-      ],
-      "comma-dangle": [
-        "error",
-        "never"
-      ],
-      "indent": [
-        "error",
-        2
-      ],
-      "object-curly-spacing": [
-        "error",
-        "always"
-      ],
-      "operator-linebreak": [
-        "error",
-        "before"
-      ],
-      "quotes": [
-        "error",
-        "single",
-        {
-          "avoidEscape": true
-        }
-      ],
-      "semi": [
-        "error",
-        "never"
-      ]
-    }
-  }
+  "version": "1.4.1"
 }
