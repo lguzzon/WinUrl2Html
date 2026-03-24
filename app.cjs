@@ -50,7 +50,7 @@ cli.main(async (arguments_, options) => {
   const urlRegex = /\.url$/i
   const contentRegex = /=(.*)/
 
-  const replaceFileContent = async function  replaceFileContent(filePath) {
+  const replaceFileContent = async function replaceFileContent(filePath) {
     cli.info(`Replacing: ${filePath}`)
 
     const fileContent = await fs.readFile(filePath, 'utf8')
@@ -68,7 +68,7 @@ cli.main(async (arguments_, options) => {
     }
   }
 
-  const directoryWorker = async function  directoryWorker(task) {
+  const directoryWorker = async function directoryWorker(task) {
     try {
       const stats = await fs.stat(task.filePath)
 
